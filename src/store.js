@@ -17,7 +17,8 @@ export default new Vuex.Store({
       {"id" : 1, "nombre" : "Grass Natural"},
       {"id" : 2, "nombre" : "Tierra"},
       {"id" : 3, "nombre" : "Losa"},
-    ]
+    ],
+    localDef : null
   },
   mutations: {
     logear(state,payload){
@@ -30,6 +31,9 @@ export default new Vuex.Store({
       state.logeado = false;
       state.usuario = {};
       localStorage.removeItem('data');
+    },
+    setLocal : function(state,local){
+      state.localDef = local;
     }
   },
   actions: {

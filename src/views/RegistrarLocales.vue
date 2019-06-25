@@ -53,8 +53,8 @@
                     </form>
                 </div>
             </div>
-            
         </div>
+        
         <!--<div><pre>{{$data}}</pre></div>-->
     </div>
 </template>
@@ -83,7 +83,7 @@ export default {
         }
     },
     computed : {
-        ...mapState(['logeado','api','apiubi','usuario']),
+        ...mapState(['logeado','api','apiubi','usuario','localDef']),
         combosOk : function(){
             return this.distritos.length > 0;
         },
@@ -104,6 +104,7 @@ export default {
         }
     },
     methods : {
+        ...mapMutations(['setLocal']),
         async getDep(){
             axios({method: 'GET',url : this.apiubi})
             .then(response => {this.departamentos = response.data;this.departamento = response.data[0];});
@@ -159,6 +160,7 @@ export default {
             .then(
                 response => {
                     this.load = false;
+                    this.nombre = "";this.direccion="";this.descripcion="";
                     M.toast({html: "Local creado!"});
                 }
             )
@@ -168,7 +170,7 @@ export default {
                 }
             );
             
-        },
+        }
     },
     mounted: function () {
 		this.$nextTick(function () {

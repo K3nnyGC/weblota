@@ -41,5 +41,10 @@ export default new Router({
       name: 'regLocal',
       component: () => import(/* webpackChunkName: "registrolocal" */ './views/RegistrarLocales.vue')
     },
+    {
+      path: '/locales',
+      name: 'misLocales',
+      component: () => import(/* webpackChunkName: "misLocales" */ './views/MisLocales.vue')
+    },
   ]
 })

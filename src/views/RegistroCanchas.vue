@@ -91,7 +91,7 @@ export default {
         }
     },
     computed : {
-        ...mapState(['logeado','usuario','tipos','api','usuario']),
+        ...mapState(['logeado','usuario','tipos','api','usuario','localDef']),
         vnombre : function(){
             if(this.nombre == "") return false;
             if(this.nombre.length < 3) return false;
@@ -109,6 +109,18 @@ export default {
         }
     },
     methods : {
+        setLocalDefault : function(){
+            if(this.locales.length > 1){
+                this.local = this.locales[0];
+            }
+            if(this.localDef != null){
+                for(let i = 0; i < this.locales.length;i++){
+                    if(this.locales[i].id == this.localDef.id){
+                        this.local = this.locales[i];
+                    }
+                }
+            }
+        },
         async getLocales(){
             axios({
                 method: 'GET',
@@ -122,9 +134,10 @@ export default {
             .then(
                 response => {
                     this.locales = response.data;
-                    if(this.locales.length > 1){
-                        this.local = this.locales[0];
-                    }
+                    this.setLocalDefault();
+                    //if(this.locales.length > 1){
+                      //  this.local = this.locales[0];
+                    //}
                     //this.load = false;
                     //M.toast({html: "Local creado!"});
                 }
@@ -155,7 +168,7 @@ export default {
             .then(
                 response => {
                     this.load = false;
-                    console.log(response);
+                    this.nombre="";this.descripcion="";this.capacidad="";
                     M.toast({html: "Canchita creada!"});
                 }
             )

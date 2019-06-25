@@ -1,5 +1,12 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+  <div class="about padre">
+    <h1 class="hijo centrado-absoluto">Weblota</h1>
   </div>
 </template>
+
+<style scoped>
+  .about{
+    min-height: 350px;
+  }
+</style>
+

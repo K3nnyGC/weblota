@@ -4,6 +4,9 @@
     <div v-if="logeado">
         <ul id="dropdown1" class="dropdown-content ancho blacksoft-text" >
             <li v-if="logeado">
+                <router-link to="/locales" class="blacksoft-text">Mis Locales</router-link>
+            </li>
+            <li v-if="logeado">
                 <router-link to="/registrar/local" class="blacksoft-text">Registrar Locales</router-link>
             </li>
             <li v-if="logeado">
@@ -32,6 +35,7 @@
           <ul id="nav-mobile" class="sidenav fondoMenu">
               <li class="blacksoft-text izquierda" @click="irA"><router-link to="/">Inicio</router-link></li>
               <li class="blacksoft-text izquierda" @click="irA"><router-link to="/about">Acerca</router-link></li>
+              <li v-if="logeado" class="blacksoft-text izquierda" @click="irA"><router-link to="/locales">Mis Locales</router-link></li>
               <li v-if="logeado" class="blacksoft-text izquierda" @click="irA"><router-link to="/registrar/local">Registrar Locales</router-link></li>
               <li v-if="logeado" class="blacksoft-text izquierda" @click="irA"><router-link to="/registrar/canchita">Registrar Canchitas</router-link></li>
               <li v-if="!logeado" class="blacksoft-text izquierda" @click="irA"><router-link to="/login">Acceder</router-link></li>
@@ -53,26 +57,26 @@
             <div class="container">
                 <div class="row">
                     <div class="col l6 s12">
-                        <h5 class="white-text">Company Bio</h5>
-                        <p class="grey-text text-lighten-4 justificado">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+                        <h5 class="white-text">Equipo #1</h5>
+                        <p class="grey-text text-lighten-4 justificado">Weblota es una aplicación que le permite a los "peloteros" buscar un lugar donde poder jugar a su deporte favorito, con la maypr comodidad al menor costo.</p>
         
                     </div>
                     <div class="col l3 s12">
-                        <h5 class="white-text">Settings</h5>
+                        <h5 class="white-text">Repositorios</h5>
                         <ul>
-                            <li><a class="white-text" href="#!">Link 1</a></li>
-                            <li><a class="white-text" href="#!">Link 2</a></li>
-                            <li><a class="white-text" href="#!">Link 3</a></li>
-                            <li><a class="white-text" href="#!">Link 4</a></li>
+                            <li><a class="white-text" href="https://github.com/K3nnyGC/k3nnygc.github.io">Front Producción</a></li>
+                            <li><a class="white-text" href="https://github.com/K3nnyGC/weblota">Front Desarrollo</a></li>
+                            <li><a class="white-text" href="#!">-</a></li>
+                            <li><a class="white-text" href="#!">-</a></li>
                         </ul>
                     </div>
                     <div class="col l3 s12">
-                        <h5 class="white-text">Connect</h5>
+                        <h5 class="white-text">Links</h5>
                         <ul>
-                            <li><a class="white-text" href="#!">Link 1</a></li>
-                            <li><a class="white-text" href="#!">Link 2</a></li>
-                            <li><a class="white-text" href="#!">Link 3</a></li>
-                            <li><a class="white-text" href="#!">Link 4</a></li>
+                            <li><a class="white-text" href="http://weblota.pe.hu/">Weblota.pe</a></li>
+                            <li><a class="white-text" href="https://k3nnygc.github.io/">Weblota githug</a></li>
+                            <li><a class="white-text" href="https://weblota-api.herokuapp.com/admin">Weblota Admin</a></li>
+                            <li><a class="white-text" href="#!">-</a></li>
                         </ul>
                     </div>
                 </div>
