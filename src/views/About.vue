@@ -1,6 +1,6 @@
 <template>
   <div class="about padre">
-    <h1 class="hijo centrado-absoluto">Weblota</h1>
+    <h1 class="hijo centrado-absoluto white-text p0 m0">Weblota</h1>
   </div>
 </template>
 

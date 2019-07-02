@@ -7,7 +7,7 @@
       v-bind:sboton="true"
       v-bind:mensaje="banner1.mensaje"
     ></banner>
-
+    <div class="green">
     <div class="container">
       <div class="section">
         <!--   Icon Section   -->
@@ -20,7 +20,7 @@
               <h5 class="center white-text">Busca tu cancha</h5>
 
               <p
-                class="light centrado white-text"
+                class="light justificado white-text"
               >Tenemos a tus disposicion una gran cantidad de campos deportivos cerca a ti, los cuales estan esperando que los conozcas y disfrutes de sus instalaciones, divierte con tus amigos y demuestren lo que es un verdadero pelotero.</p>
             </div>
           </div>
@@ -33,7 +33,7 @@
               <h5 class="center white-text">Organiza tus tiempos</h5>
 
               <p
-                class="light center white-text"
+                class="light justificado white-text"
               >Contamos con infinidad de horarios los 7 días de la semana, elige el que mas se ajuste a tu rutina, mañana tarde y noche, siempre habrá una canchita disponible para ti y tus amigos.</p>
             </div>
           </div>
@@ -46,14 +46,14 @@
               <h5 class="center white-text">Paga Seguro</h5>
 
               <p
-                class="light center white-text"
+                class="light justificado white-text"
               >Con nuestro método de pago seguro, olvídate del efectivo y paga desde la comodidad de tu hogar o centro de trabajo, con total confianza.</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-
+    </div>
     <banner
       v-bind:imagen="banner2.imagen"
       v-bind:stitulo="false"

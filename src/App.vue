@@ -50,8 +50,11 @@
           <a href="#" data-target="nav-mobile" class="sidenav-trigger white-text"><i class="fas fa-bars"></i></a>
       </div>
     </nav>
-    
-    <router-view/>
+    <div>
+      <transition name="fade" mode="out-in">
+        <router-view/>
+      </transition>
+    </div>
 
     <footer class="page-footer green">
             <div class="container">
@@ -74,7 +77,7 @@
                         <h5 class="white-text">Links</h5>
                         <ul>
                             <li><a class="white-text" href="http://weblota.pe.hu/">Weblota.pe</a></li>
-                            <li><a class="white-text" href="https://k3nnygc.github.io/">Weblota githug</a></li>
+                            <li><a class="white-text" href="https://k3nnygc.github.io/">Weblota github</a></li>
                             <li><a class="white-text" href="https://weblota-api.herokuapp.com/admin">Weblota Admin</a></li>
                             <li><a class="white-text" href="#!">-</a></li>
                         </ul>
@@ -163,4 +166,18 @@ export default {
     background-color: rgba(70, 173, 74);
     background-color: rgba(70, 173, 74, 0.957);
 }
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+.fp{
+    /*background-image: url(/Assets/img/back.jpg);*/
+    background-size: 100% auto;
+    background-attachment: fixed;
+}
+
 </style>

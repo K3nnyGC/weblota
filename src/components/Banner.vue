@@ -8,7 +8,7 @@
                     <h5 class="header col s12 light textoBlanco">{{mensaje}}</h5>
                 </div>
                 <div v-if="sboton" class="row center">
-                    <router-link :to="link" class="btn-large waves-effect waves-light green lighten-1 disabled">Busquemos canchitas <i class="fal fa-search"></i></router-link>
+                    <router-link :to="link" class="btn-large waves-effect waves-light green ">Busquemos canchitas <i class="fal fa-search"></i></router-link>
                 </div>
                 <br><br>
             </div>

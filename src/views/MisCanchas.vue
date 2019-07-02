@@ -1,10 +1,10 @@
 <template>
-<div class="misLocales">
+<div class="misCanchas">
     <div class="row" v-if="load">
     </div> 
     <div class="row">
         <div class="col s12 izquierda">
-            <h3 class="white-text">Mis locales</h3>
+            <h3 class="white-text">Mis Canchas</h3>
         </div>
         <div class="col s12" v-if="load">
             <Loader></Loader>
@@ -13,10 +13,10 @@
             <div class="row">
                 <div class="col s12 m8 offset-m2 l6 offset-l3 xl4 offset-xl4">
                     <div class="card-panel blue white-text center">
-                        <p>No tienes Locales Registrados</p>
+                        <p>No tienes Canchitas Registradas</p>
                         <a class="btn waves-effect amber"
-                            @click="$router.push('/registrar/local')">
-                            Registrar Local
+                            @click="$router.push('/registrar/canchita')">
+                            Registrar Canchita
                         </a>  
                     </div>
                 </div>
@@ -29,17 +29,17 @@
             enter-active-class="animated slideInUp"
             leave-active-class="animated bounceOutRight"
         >
-        <div class="row" v-if="creados.length > 0">
-            <div>
-                <div class="col s12 m6 l4 xl3"
-                    v-for="(item,key) in creados" :key="key"
-                >
-                    <Tarjetalocal
-                        :item = "item"
-                    ></Tarjetalocal>
+            <div class="row" v-if="creados.length > 0">
+                <div>
+                    <div class="col s12 m6 l4 xl3"
+                        v-for="(item,key) in creados" :key="key"
+                    >
+                        <TarjetaCancha
+                            :item = "item"
+                        ></TarjetaCancha>
+                    </div>
                 </div>
             </div>
-        </div>
         </transition>
     </div>
 </div>
@@ -47,13 +47,13 @@
 
 <script>
 import Loader from "@/components/Loader.vue";
-import Tarjetalocal from "@/components/Tarjetalocal.vue";
+import TarjetaCancha from "@/components/TarjetaCancha.vue";
 import axios from "axios";
 import {mapState, mapMutations} from "vuex";
 export default {
     name : "MisCampos",
     components : {
-        Loader, Tarjetalocal
+        Loader, TarjetaCancha
     },
     data : function(){
         return {
@@ -66,11 +66,11 @@ export default {
     },
     methods : {
         ...mapMutations(['setLocal']),
-        async getLocales(){
+        async getCanchitas(){
             this.load = true;
             axios({
                 method: 'GET',
-                url : this.api + '/api/local/',
+                url : this.api + '/api/court-soccer/',
                 headers: {
                     'Content-Type': 'application/json',
                     "Accept": "application/json, text/plain, */*",
@@ -79,19 +79,23 @@ export default {
             })
             .then(
                 response => {
-                    this.creados = response.data;
+                    this.asignar(response.data);
                     this.load = false;
                 }
             )
             .catch(error => {
                     this.load = false;
-                    M.toast({html: "La lista de tus locales no esta disponible!"});
+                    M.toast({html: "La lista de tus canchitas no esta disponible!"});
                 }
             );
         },
-        addCancha : function(local){
-            this.setLocal(local);
-            this.$router.push("/registrar/canchita");
+        asignar : function(lista){
+            this.creados = [];
+            for(let i = 0; i < lista.length; i++ ){
+                if(lista[i].local.id == this.localDef.id){
+                    this.creados.push(lista[i]);
+                }
+            }
         }
     },
     mounted : function(){
@@ -100,7 +104,7 @@ export default {
                 this.$router.push("/");
             }
             //Cargar mis locales
-            this.getLocales();
+            this.getCanchitas();
 		});
     }
 }

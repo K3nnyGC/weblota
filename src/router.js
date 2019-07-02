@@ -46,5 +46,20 @@ export default new Router({
       name: 'misLocales',
       component: () => import(/* webpackChunkName: "misLocales" */ './views/MisLocales.vue')
     },
+    {
+      path: '/canchitas',
+      name: 'misCanchitas',
+      component: () => import(/* webpackChunkName: "misCanchitas" */ './views/MisCanchas.vue')
+    },
+    {
+      path: '/canchitas/galeria',
+      name: 'misFotos',
+      component: () => import(/* webpackChunkName: "misFotos" */ './views/Galeria.vue')
+    },
+    {
+      path: '/canchitas/horarios',
+      name: 'misHorarios',
+      component: () => import(/* webpackChunkName: "misHorarios" */ './views/Horarios.vue')
+    },
   ]
 })

@@ -155,7 +155,7 @@ export default {
                 data: {
                     "local" : this.local.id,
                     "name" : this.nombre,
-                    "ddescription" : this.descripcion,
+                    "description" : this.descripcion,
                     "capacity" : this.capacidad,
                     "material_type" : this.tipo.id
                 },

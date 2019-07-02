@@ -1,13 +1,12 @@
 <template>
-  <div class="campo">
-      <div class="card-panel  contenerdor-campo hoverable p0">
-          <div class="imagen-contenedor padre">
-              <img :id="'campo'+id" class="imagen responsive-img" src="/Assets/img/169.png" alt="No veo el campo :(" :style="{'backgroundImage' : imagen}">
-              <p class="titulo-campo hijo">{{canchita.name}}</p>
+  <div class="foto">
+      <div class="card-panel  contenerdor-campo hoverable p0 f-dina">
+          <div class="imagen-contenedor padre tranparent">
+              <img :id="'campo'+FotoObj.id" class="imagen responsive-img" src="/Assets/img/169.png" alt="No veo el campo :(" :style="{'backgroundImage' : imagen}">
           </div>
-          <p class="centrado">
+          <!--<p class="centrado">
               <a class="btn waves-effect green">Reservar</a>
-          </p>
+          </p>-->
       </div>
   </div>
 </template>
@@ -15,27 +14,22 @@
 <script>
 import {mapState,mapMutations} from "vuex";
 export default {
-  name: 'Campo',
-  props: {
-      id : Number,
-      canchita : Object
-  },
-  computed : {
-    ...mapState(['api']),
-    imagen : function(){
-            if(this.canchita.gallery.length > 0){
-              return "url(" + this.api + this.canchita.gallery[0].photo + ")";
-            } else {
-              return "unset"
-            }
+    name: 'Foto',
+    props: {
+        FotoObj : Object
+    },
+    computed : {
+        ...mapState(['api']),
+        imagen : function(){
+            return "url(" + this.api + this.FotoObj.photo + ")";
         }
-  },
+    },
     mounted: function () {
 		this.$nextTick(function () {
             //let elems = document.querySelectorAll('.materialboxed');
             //let instances = M.Materialbox.init(elems, {});
-		})
-	}
+		});
+    }
 }
 </script>
 
@@ -64,9 +58,12 @@ export default {
 .imagen{
     width: 100%;
     /*border : white solid 10px;*/
-    background-image : url("/Assets/img/background1.jpg");
+    /*background-image : url("/Assets/img/background1.jpg");*/
     background-repeat : no-repeat;
     background-position: center;
     background-size : cover;
+}
+.f-dina:hover{
+    background-color : gold;
 }
 </style>
