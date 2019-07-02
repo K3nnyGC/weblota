@@ -9,8 +9,8 @@
             </address>
         </div>
         <div class="card-action derecha">
-            <a class="manito blacksoft-text" @click="showCancha(item)"><i class="fal fa-exclamation-circle fa-2x"></i></a>
-            <a class="manito blacksoft-text" @click="addCancha(item)"><i class="fal fa-plus-circle fa-2x"></i></a>
+            <a class="manito blacksoft-text" @click="showCancha(item)"><i class="fal fa-exclamation-circle"></i> Canchas</a>
+            <a class="manito blacksoft-text" @click="addCancha(item)"><i class="fal fa-plus-circle"></i> Agregar</a>
         </div>
     </div>
 </template>

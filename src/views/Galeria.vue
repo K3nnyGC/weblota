@@ -1,6 +1,6 @@
 <template>
-    <div class="galeria">
-        <h3 class="white-text">Galeria {{canchita.name}}</h3>
+    <div class="galeria izquierda">
+        <h3 class="white-text chalk">Galeria {{canchita.name}}</h3>
         <div class="row">
             <div class="col s12 m10 offset-m1 l8 offset-l2 xl6 offset-xl3">
                 <div class="card-panel">
@@ -20,7 +20,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="input-field col s12">
+                            <div class="input-field col s12 center">
                             <input type="submit" value="Agregar" class="btn waves-effect green" :class="agregado && !load ? '' : 'disabled'">
                             </div>
                         </div>

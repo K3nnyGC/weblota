@@ -2,19 +2,19 @@
   <div class="search">
         <div class="row">
             <div class="col s12 m10 offset-m1 l6 xl3">
-                <div class="justificado">Departamento</div>
+                <div class="justificado white-text">Departamento</div>
                 <select class="browser-default" :disabled="departamentos.length == 0" @change="cambiarDep" v-model="departamento">
                     <option :value="item" v-for="(item,key) in departamentos" :key=key>{{item.Nombre}}</option>
                 </select>
             </div>
             <div class="col s12 m10 offset-m1 l6 xl3">
-                <div class="justificado">Provincia</div>
+                <div class="justificado white-text">Provincia</div>
                 <select class="browser-default" :disabled="provincias.length == 0" @change="cambiarProv" v-model="provincia">
                     <option :value="item" v-for="(item,key) in provincias" :key=key>{{item.Nombre}}</option>
                 </select>
             </div>
             <div class="col s12 m10 offset-m1 l6 xl3">
-                <div class="justificado">Distrito</div>
+                <div class="justificado white-text">Distrito</div>
                 <select class="browser-default" :disabled="distritos.length == 0" v-model="distrito">
                     <option :value="item" v-for="(item,key) in distritos" :key=key>{{item.Nombre}}</option>
                 </select>

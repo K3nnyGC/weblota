@@ -1,6 +1,9 @@
 <template>
     <div class="horarios">
         <div class="row">
+            <div class="col s12 izquierda">
+                <h3 class="white-text chalk">Canchita: {{canchitaDef.name}}</h3>
+            </div>
             <div class="col s12 m6 l4">
                 <div class="card-panel h620 hoverable">
                     <h3 class="izquierda">Detalles</h3>

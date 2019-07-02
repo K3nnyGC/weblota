@@ -61,7 +61,7 @@
                 <div class="row">
                     <div class="col l6 s12">
                         <h5 class="white-text">Equipo #1</h5>
-                        <p class="grey-text text-lighten-4 justificado">Weblota es una aplicación que le permite a los "peloteros" buscar un lugar donde poder jugar a su deporte favorito, con la maypr comodidad al menor costo.</p>
+                        <p class="grey-text text-lighten-4 justificado">Weblota es una aplicación que le permite a los "peloteros" buscar un lugar donde poder jugar a su deporte favorito, con la mayor comodidad al menor costo.</p>
         
                     </div>
                     <div class="col l3 s12">
@@ -175,9 +175,18 @@ export default {
 }
 
 .fp{
-    /*background-image: url(/Assets/img/back.jpg);*/
-    background-size: 100% auto;
+    background-image: url(/Assets/img/back.jpg);
     background-attachment: fixed;
+    background-repeat : no-repeat;
+    background-size: cover;
+    background-position: top center;
+}
+
+@media screen and (max-width: 800px) {
+  .fp{
+    background-image: url(/Assets/img/back.m.jpg);
+    background-size: 100% 700px;
+  }
 }
 
 </style>

@@ -21,7 +21,7 @@ export default {
     computed : {
         ...mapState(['api']),
         imagen : function(){
-            return "url(" + this.api + this.FotoObj.photo + ")";
+            return "url(" + this.api + this.FotoObj.photo + ") , url(/Assets/img/field.m.jpeg)";
         }
     },
     mounted: function () {
@@ -58,7 +58,7 @@ export default {
 .imagen{
     width: 100%;
     /*border : white solid 10px;*/
-    /*background-image : url("/Assets/img/background1.jpg");*/
+    background-image : url("/Assets/img/field.m.jpeg");
     background-repeat : no-repeat;
     background-position: center;
     background-size : cover;

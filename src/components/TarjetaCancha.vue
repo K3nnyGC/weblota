@@ -11,7 +11,7 @@
         </div>
         <div class="card-action derecha ">
             <a class="manito white-text" @click="showGallery(item)"><i class="fal fa-images"></i> Galeria</a>
-            <a class="manito white-text" @click="showHours(item)"><i class="fal fa-images"></i> Horarios</a>
+            <a class="manito white-text" @click="showHours(item)"><i class="fal fa-calendar-alt"></i> Horarios</a>
         </div>
     </div>
 </template>

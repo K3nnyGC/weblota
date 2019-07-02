@@ -24,7 +24,7 @@ export default {
     ...mapState(['api']),
     imagen : function(){
             if(this.canchita.gallery.length > 0){
-              return "url(" + this.api + this.canchita.gallery[0].photo + ")";
+              return "url(" + this.api + this.canchita.gallery[0].photo + ") , url(/Assets/img/field.m.jpeg)";
             } else {
               return "unset"
             }

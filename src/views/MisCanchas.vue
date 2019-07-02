@@ -4,7 +4,7 @@
     </div> 
     <div class="row">
         <div class="col s12 izquierda">
-            <h3 class="white-text">Mis Canchas</h3>
+            <h3 class="white-text chalk">Mis Canchas: {{localDef.name}}</h3>
         </div>
         <div class="col s12" v-if="load">
             <Loader></Loader>
@@ -96,6 +96,11 @@ export default {
                     this.creados.push(lista[i]);
                 }
             }
+        }
+    },
+    created : function(){
+        if(this.localDef == null){
+            this.$router.push("/");
         }
     },
     mounted : function(){

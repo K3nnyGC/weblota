@@ -18,7 +18,8 @@ export default new Vuex.Store({
       {"id" : 2, "nombre" : "Tierra"},
       {"id" : 3, "nombre" : "Losa"},
     ],
-    localDef : null
+    localDef : null,
+    canchitaDef : null,
   },
   mutations: {
     logear(state,payload){
@@ -34,6 +35,9 @@ export default new Vuex.Store({
     },
     setLocal : function(state,local){
       state.localDef = local;
+    },
+    setCanchita : function(state,canchita){
+      state.canchitaDef = canchita;
     }
   },
   actions: {
