@@ -21,7 +21,7 @@ export default {
     computed : {
         ...mapState(['api']),
         imagen : function(){
-            return "url(" + this.api + this.FotoObj.photo + ") , url(/Assets/img/field.m.jpeg)";
+            return "url(" + this.FotoObj.photo + ") , url(/Assets/img/field.m.jpeg)";
         }
     },
     mounted: function () {

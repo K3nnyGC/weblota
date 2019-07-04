@@ -52,7 +52,7 @@
     </nav>
     <div>
       <transition name="fade" mode="out-in">
-        <router-view/>
+        <router-view class="ancho-todo"/>
       </transition>
     </div>
 
@@ -172,6 +172,11 @@ export default {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+
+.ancho-todo{
+    width : 100%;
+    overflow-x: hidden;
 }
 
 .fp{

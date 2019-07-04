@@ -61,5 +61,10 @@ export default new Router({
       name: 'misHorarios',
       component: () => import(/* webpackChunkName: "misHorarios" */ './views/Horarios.vue')
     },
+    {
+      path: '/test',
+      name: 'test',
+      component: () => import(/* webpackChunkName: "test" */ './views/Testing.vue')
+    },
   ]
 })
