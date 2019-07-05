@@ -54,6 +54,8 @@ export default {
 }
 .imagen-contenedor{
     width: 100%;
+    overflow-y: hidden;
+    margin-bottom: -10px;
 }
 .imagen{
     width: 100%;

@@ -31,18 +31,27 @@
             <Loader/>
         </div>
     </div>
-    <div class="row">
+    <div class="row vacio">
         <div class="col s12 m10 offset-m1 l6 xl4"
             v-for="(item,index) in canchitas"
             :key=index
         >
-            <Campo
-             :id = "index"
-             :canchita = "item"
-            ></Campo>
+            <div @click="detallar(item)">
+                <Campo
+                :id = "index"
+                :canchita = "item"
+                ></Campo>
+            </div>
         </div>
     </div>
-    <!--<div class="center">
+    
+    <ModalCampo
+        :id="campoElegido.id"
+        :obj="campoElegido"
+    />
+    
+    
+    <!--<div class="izquierda">
       <pre>{{$data}}</pre>
     </div>-->
   </div>
@@ -52,13 +61,14 @@
 // @ is an alias to /src
 import Loader from "@/components/Loader.vue";
 import {mapState, mapMutations} from "vuex";
-import Campo from '@/components/Campo.vue'
+import Campo from '@/components/Campo.vue';
+import ModalCampo from "@/components/ModalCampo.vue";
 import axios from "axios";
 
 export default {
   name: 'home',
   components: {
-    Campo, Loader
+    Campo, Loader, ModalCampo
   },
   data : function(){
     return {
@@ -69,7 +79,13 @@ export default {
         departamento : null,
         provincia : null,
         distrito : null,
-        canchitas : []
+        canchitas : [],
+        campoElegido : {
+            id : -1,
+            gallery : [
+                {photo : ""}
+            ]
+        }
     }
   },
   computed :{
@@ -133,6 +149,11 @@ export default {
                 M.toast({html: "No hay canchitas aun en " + this.distrito.Nombre +"!"});
             }
             
+        },
+        detallar : function(canchita){
+            this.campoElegido = {};
+            this.campoElegido = canchita;
+            console.log("Detallando..........");
         }
   },
 	mounted: function () {
@@ -140,8 +161,12 @@ export default {
             if(!this.logeado){
                 this.$router.push("/login");
                 M.toast({html: "Debes estar logeado!"});
+            } else {
+                var elems = document.querySelectorAll('.modal');
+                var instances = M.Modal.init(elems, {});
+                this.getDep();
             }
-            this.getDep();
+            
 		});
 	}
 }

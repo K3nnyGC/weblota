@@ -179,6 +179,10 @@ export default {
     overflow-x: hidden;
 }
 
+.vacio{
+    min-height: 600px;
+}
+
 .fp{
     background-image: url(/Assets/img/back.jpg);
     background-attachment: fixed;

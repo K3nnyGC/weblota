@@ -37,13 +37,15 @@
         <div class="row">
             <div class="col s12 izquierda">
                 <div class="row">
+                    <transition-group name="list">
                     <div class="col s12 m6 l4 xl3"
-                        v-for="(item,index) in canchita.gallery" :key=index
+                        v-for="item in canchita.gallery" :key=item.id
                     >
                         <Foto
                         v-bind:FotoObj = item
                         ></Foto>
                     </div>
+                    </transition-group>
                 </div>
             </div>
         </div>
@@ -110,7 +112,15 @@ export default {
             .then(
                 response => {
                     this.load = false;
+                    let c = this.canchita;
+                    c.gallery.push(response.data);
+                    this.setCanchita(c);
                     M.toast({html: "Foto agregada!"});
+                    let previewZone = document.getElementById('file-preview-zone');
+                    previewZone.innerHTML = "";
+                    let texto = document.getElementById('texto');
+                    texto.value = "";
+                    this.agregado = false;
                 }
             )
             .catch(error => {
@@ -143,4 +153,19 @@ export default {
 	}
 }
 </script>
+
+<style scoped>
+.list-item {
+  display: inline-block;
+  margin-right: 10px;
+}
+.list-enter-active, .list-leave-active {
+  transition: all 1s;
+}
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
+}
+</style>
+
 

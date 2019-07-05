@@ -33,7 +33,7 @@ let campo = {
     id : 5,
     canchita : {
         id : 5,
-        name : "hoña",
+        name : "El nombre de la canchita...",
         gallery : [
             {"photo" : "https://www.sportaragon.com/wp-content/uploads/2017/09/campo-futbol-universidad-campus-huesca.jpg"}
         ]

@@ -29,7 +29,7 @@ export default {
             if(this.canchita.gallery.length > 0){
               return "url(" + this.canchita.gallery[0].photo + ") , url(/Assets/img/field.m.jpeg)";
             } else {
-              return "unset"
+              return "url(/Assets/img/field.m.jpeg)";
             }
         }
   },

@@ -105,9 +105,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-    .vacio{
-        min-height: 500px;
-    }
-</style>
