@@ -2,7 +2,7 @@
     <!-- Modal Structure -->
     <div :id="'modal'+id" class="modal  bottom-sheet blacksoft white-text">
         <div class="modal-content blacksoft-text izquierda padre">
-            <h4 class="white-text eraser chalk">{{obj.name}}</h4>
+            <h4 class="white-text eraser chalk">{{obj.name | min }}</h4>
             <p class="white-text justificado">{{textos.description}}</p>
             <p class="white-text justificado">Capacidad: {{textos.capacity}}</p>
             <p class="white-text justificado">Material: {{tipo}}</p>
@@ -22,7 +22,7 @@
                     </div>
                 </div>
             </div>
-            <h4 class="white-text justificado">Horatio de atención:</h4>
+            <h4 class="white-text justificado">Horarío de atención:</h4>
             <p class="white-text justificado">{{obj.local ? obj.local.name : 'Este local'}} atiende desde las {{textos.begin}} hasta las {{textos.end}} y los espera en {{textos.address}}</p>
             <br><br>
             <a class="btn-floating btn-large waves-effect waves-light amber hijo cerrar z-depth-3 modal-close">
@@ -81,6 +81,7 @@ export default {
                 fullWidth: true
             });
         }
+
     },
     updated : function(){
         this.cambiar();

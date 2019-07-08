@@ -4,7 +4,7 @@
             <div class="imagen-contenedor padre">
                 <img :id="'campo'+id" class="imagen responsive-img" src="/Assets/img/169.png" alt="No veo el campo :(" :style="{'backgroundImage' : imagen}" @click="detallar()">
                 <p class="titulo-campo hijo">{{canchita.name}}</p>
-                <a class="btn-floating btn-large waves-effect waves-light amber hijo cart z-depth-3" @click="reservar()">
+                <a class="btn-floating btn-large waves-effect waves-light amber hijo cart z-depth-3" @click="reservar(canchita)">
                     <i class="fal fa-cart-plus blacksoft-text"></i>
                 </a>
             </div>
@@ -34,8 +34,11 @@ export default {
         }
   },
   methods : {
-      reservar : function(){
+    ...mapMutations(["setCanchita"]),
+      reservar : function(canchita){
           console.log("Reservando...");
+          this.setCanchita(canchita);
+          this.$router.push("/reservar");
       },
       detallar : function(){
             var elems = document.querySelectorAll('.modal');

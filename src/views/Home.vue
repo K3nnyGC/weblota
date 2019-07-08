@@ -1,5 +1,7 @@
 <template>
-  <div class="search">
+    <div class="search padre">
+        <LoaderFlat v-if="load2"/>
+        <br>
         <div class="row">
             <div class="col s12 m10 offset-m1 l6 xl3">
                 <div class="justificado white-text">Departamento</div>
@@ -26,40 +28,41 @@
                 >Buscar</a>
             </div>
         </div>
-    <div class="row" v-if="load">
-        <div class="col s12 center">
-            <Loader/>
-        </div>
-    </div>
-    <div class="row vacio">
-        <div class="col s12 m10 offset-m1 l6 xl4"
-            v-for="(item,index) in canchitas"
-            :key=index
-        >
-            <div @click="detallar(item)">
-                <Campo
-                :id = "index"
-                :canchita = "item"
-                ></Campo>
+
+        <div class="row" v-if="load">
+            <div class="col s12 center">
+                <Loader/>
             </div>
         </div>
-    </div>
-    
-    <ModalCampo
-        :id="campoElegido.id"
-        :obj="campoElegido"
-    />
-    
-    
-    <!--<div class="izquierda">
-      <pre>{{$data}}</pre>
-    </div>-->
+
+        <div class="row vacio">
+            <div class="col s12 m10 offset-m1 l6 xl4"
+                v-for="(item,index) in canchitas"
+                :key=index
+            >
+                <div @click="detallar(item)">
+                    <Campo
+                    :id = "index"
+                    :canchita = "item"
+                    ></Campo>
+                </div>
+            </div>
+        </div>
+
+        <ModalCampo
+            :id="campoElegido.id"
+            :obj="campoElegido"
+        />
+        <!--<div class="izquierda">
+        <pre>{{$data}}</pre>
+        </div>-->
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import Loader from "@/components/Loader.vue";
+import LoaderFlat from "@/components/LoaderFlat.vue";
 import {mapState, mapMutations} from "vuex";
 import Campo from '@/components/Campo.vue';
 import ModalCampo from "@/components/ModalCampo.vue";
@@ -68,11 +71,12 @@ import axios from "axios";
 export default {
   name: 'home',
   components: {
-    Campo, Loader, ModalCampo
+    Campo, Loader, LoaderFlat, ModalCampo
   },
   data : function(){
     return {
         load : false,
+        load2 : true,
         departamentos : [],
         provincias : [],
         distritos : [],
@@ -94,7 +98,7 @@ export default {
   methods : {
         async getDep(){
             axios({method: 'GET',url : this.apiubi})
-            .then(response => {this.departamentos = response.data;this.departamento = response.data[0];});
+            .then(response => {this.departamentos = response.data;this.departamento = response.data[0];this.load2=false;});
         },
         cambiarDep: function(){
             this.provincias = [];
@@ -123,12 +127,12 @@ export default {
                 headers: {
                     'Content-Type': 'application/json',
                     "Accept": "application/json, text/plain, */*",
-                    "Authorization" : this.usuario.data.token_type + " " + this.usuario.data.access_token
+                    /*"Authorization" : this.usuario.data.token_type + " " + this.usuario.data.access_token*/
                 }
             })
             .then(
                 response => {
-                    this.filtrar(response.data);
+                    this.filtrar(response.data.results);
                     this.load = false;
                 }
             )
@@ -158,14 +162,16 @@ export default {
   },
 	mounted: function () {
 		this.$nextTick(function () {
-            if(!this.logeado){
+            /*if(!this.logeado){
                 this.$router.push("/login");
                 M.toast({html: "Debes estar logeado!"});
             } else {
-                var elems = document.querySelectorAll('.modal');
+                
+            }*/
+
+            var elems = document.querySelectorAll('.modal');
                 var instances = M.Modal.init(elems, {});
                 this.getDep();
-            }
             
 		});
 	}

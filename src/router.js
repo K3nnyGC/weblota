@@ -66,5 +66,19 @@ export default new Router({
       name: 'test',
       component: () => import(/* webpackChunkName: "test" */ './views/Testing.vue')
     },
-  ]
+    {
+      path: '/reservar',
+      name: 'reservar',
+      component: () => import(/* webpackChunkName: "reservar" */ './views/Reservar.vue')
+    },
+    {
+      path: '/horarios',
+      name: 'horariosFijos',
+      component: () => import(/* webpackChunkName: "horariosFijos" */ './views/HorarioFijo.vue')
+    },
+  ],
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  }
+  
 })

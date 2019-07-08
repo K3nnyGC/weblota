@@ -1,108 +1,45 @@
 <template>
-    <div class="horarios">
+    <div class="reservar">
         <div class="row">
-            <div class="col s12 izquierda">
-                <h3 class="white-text chalk">Canchita: {{nombre | min}}</h3>
+            <div class="col s12">
+                <h3 class="chalk izquierda white-text">Reservar</h3>
             </div>
-            <div class="col s12 m6 l4" v-if="!bloqueado">
-                <div class="card-panel h620 hoverable">
-                    <h3 class="izquierda">Detalles</h3>
-                    <div class="row">
-                        <form @submit="enviarLimites($event)">
-                        <div class="col s12">
-                            <p class="justificado grey-text">Canchita</p>
-                            <input type="text" :value="nombre" disabled>
-                        </div>
-                        <div class="col s12">
-                            <p class="justificado grey-text">Hora de inicio</p>
-                            <input type="text" class="timepicker manito" @keypress="nulo($event)" v-model="hi" @change="pri($event)" id="fe1">
-                        </div>
-                        <div class="col s12">
-                            <p class="justificado grey-text">Hora de fin</p>
-                            <input type="text" class="timepicker manito" @keypress="nulo($event)" v-model="hf" @change="pri($event)" id="fe2">
-                        </div>
-                        <div class="col s12">
-                            <p class="justificado grey-text">Tiempo de alquiler</p>
-                            <select class="browser-default" v-model="gg" @change="pri($event)">
-                                <option value=30>30 minutos</option>
-                                <option value=45>45 minutos</option>
-                                <option value=60>60 minutos</option>
-                            </select>
-                        </div>
-                        <div class="col s12 center">
-                            <br>
-                            <input type="submit" class="btn waves-effect green" value="Actualizar" :class="[load ? 'disabled' : '']">
-                        </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="col s12 m6 l4">
-                <div class="card-panel h620 hoverable">
-                    <div class="switch right">
-                        <label>
-                        Detallado
-                        <input type="checkbox" v-model="generico">
-                        <span class="lever green"></span>
-                        Genérico
-                        </label>
-                    </div>
-                    <h3 class="izquierda">Precio</h3>
-                    <div class="row" v-if="generico">
-                        <div class="input-field col s12">
-                            <input id="valor" type="number" class="validate" v-model="valor">
-                            <label for="valor" :class="[valor >= 0 ? 'active' : '']">Precio</label>
-                        </div>
-                    </div>
-                    <transition
-                        name="fade"
-                        mode="out-in"
-                    >
-                    <div class="tabla" v-show="!generico">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Hora</th>
-                                    <th>Precio S/</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="i in intervalos" :key="i">
-                                    <td>{{mostrar((i-1)*gg)}}</td>
-                                    <td><input type="number" min=0 max=300 step=10 class="resetInput" :id="'int'+i"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    </transition>
-                </div>
-            </div>
-            <div class="col s12 m6 l4">
-                <div class="card-panel h620 hoverable">
-                    <h3 class="izquierda">Resumen</h3>
+            <div class="col s12">
+                <div class="card-panel">
                     <table>
-                        <tr><th>Apertura</th><td>{{hi}}</td></tr>
-                        <tr><th>Cierre</th><td>{{hf}}</td></tr>
-                        <tr><th>Cupos</th><td>{{intervalos}}</td></tr>
-                        <tr><th>Tiempo</th><td>{{gg}} min</td></tr>
-                        <tr><th>Precio regular</th><td>S/ {{valor}}</td></tr>
-                        <tr><th>Precio detallado</th><td>{{!generico ? "Si" : "No"}}</td></tr>
+                        <thead>
+                            <tr>
+                                <th>Hora</th>
+                                <th>Precio S/</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="i in intervalos" :key="i">
+                                <td>{{mostrar((i-1)*gg)}}</td>
+                                <td>80</td>
+                                <td>
+                                    <label>
+                                        <input type="checkbox"  :id="'p'+i" />
+                                        <span></span>
+                                    </label>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
-                    <div class="row">
-                        <div class="col s12 center">
-                            <br>
-                            <input type="submit" class="btn waves-effect green">
-                            <a class="btn waves-effect amber" @click="colectar()">Aca!</a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
-        <div>
-            <pre class="izquierda">
-                {{$data}}
-            </pre>
+        <div class="row">
+            <div class="col s12">
+                <div class="card-panel">
+                    <pre>
+                        {{$data}}
+                    </pre>
+                </div>
+            </div>
         </div>
+
     </div>
 </template>
 
@@ -110,18 +47,18 @@
 import {mapState, mapMutations} from "vuex";
 import axios from "axios";
 export default {
-    name : "Horario",
+    name : "Reserva",
     data : function(){
         return {
             load : false,
-            hi : "",
-            hf : "",
-            intervalos : 0,
+            hi : "06:15",
+            hf : "22:00",
+            intervalos : 28,
             gg : 30,
             valor : 0,
             generico : true,
             lista : [],
-            bloqueado : false
+            checked : []
         }
     },
     computed : {
@@ -282,30 +219,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-    .manito{
-        cursor : pointer;
-    }
-    .resetInput{
-        border: none !important;
-        margin: 0 !important;
-        box-shadow: none !important;
-    }
-    td {
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
-    }
-    .h620{
-        height: 680px !important;
-    }
-    .tabla{
-        overflow-y: auto;
-        max-height: 500px;
-        border: 6px #f1f1f1 solid;
-        padding: 10px;
-        border-radius: 5px;
-    }
-</style>
-
-

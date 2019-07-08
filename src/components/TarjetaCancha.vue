@@ -35,6 +35,7 @@ export default {
         showHours: function(canchita){
             this.setCanchita(canchita);
             this.$router.push("/canchitas/horarios");
+            //this.$router.push("/horarios");
         },
     }
 }

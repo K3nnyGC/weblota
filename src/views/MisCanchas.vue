@@ -4,7 +4,7 @@
     </div> 
     <div class="row">
         <div class="col s12 izquierda">
-            <h3 class="white-text chalk">Mis Canchas: {{localDef.name}}</h3>
+            <h3 class="white-text chalk">Mis Canchas: {{localDef.name | min}}</h3>
         </div>
         <div class="col s12" v-if="load">
             <Loader></Loader>
@@ -79,7 +79,7 @@ export default {
             })
             .then(
                 response => {
-                    this.asignar(response.data);
+                    this.asignar(response.data.results);
                     this.load = false;
                 }
             )
@@ -109,7 +109,9 @@ export default {
                 this.$router.push("/");
             }
             //Cargar mis locales
-            this.getCanchitas();
+            this.creados = this.localDef.court_soccer;
+            //this.getCanchitas();
+            //console.log(this.localDef);
 		});
     }
 }
