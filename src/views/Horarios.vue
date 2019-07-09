@@ -1,6 +1,16 @@
 <template>
-    <div class="horarios">
+    <div class="horarios vacio">
         <div class="row">
+            <div class="col s12 center" v-if="cargando">
+                <Loader></Loader>
+            </div>
+        </div>
+        <transition
+            name="custom-classes-transition"
+            enter-active-class="animated slideInUp"
+            leave-active-class="animated bounceOutRight"
+        >
+        <div class="row" v-show="!cargando">
             <div class="col s12 izquierda">
                 <h3 class="white-text chalk">Canchita: {{nombre | min}}</h3>
             </div>
@@ -31,18 +41,18 @@
                         </div>
                         <div class="col s12 center">
                             <br>
-                            <input type="submit" class="btn waves-effect green" value="Actualizar" :class="[load ? 'disabled' : '']">
+                            <input type="submit" class="btn waves-effect green" value="Crear Horario" :class="[load ? 'disabled' : '']">
                         </div>
                         </form>
                     </div>
                 </div>
             </div>
-            <div class="col s12 m6 l4">
+            <div class="col s12 m6 l4" v-if="bloqueado">
                 <div class="card-panel h620 hoverable">
                     <div class="switch right">
                         <label>
                         Detallado
-                        <input type="checkbox" v-model="generico">
+                        <input type="checkbox" v-model="generico" @change="generar()">
                         <span class="lever green"></span>
                         Genérico
                         </label>
@@ -69,7 +79,7 @@
                             <tbody>
                                 <tr v-for="i in intervalos" :key="i">
                                     <td>{{mostrar((i-1)*gg)}}</td>
-                                    <td><input type="number" min=0 max=300 step=10 class="resetInput" :id="'int'+i"></td>
+                                    <td><input type="number" min=0 max=300 step=10 class="resetInput" :id="'int'+i" @change="colectar()"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -78,39 +88,43 @@
                 </div>
             </div>
             <div class="col s12 m6 l4">
-                <div class="card-panel h620 hoverable">
+                <div class="card-panel h620 hoverable" v-if="bloqueado">
                     <h3 class="izquierda">Resumen</h3>
                     <table>
                         <tr><th>Apertura</th><td>{{hi}}</td></tr>
                         <tr><th>Cierre</th><td>{{hf}}</td></tr>
-                        <tr><th>Cupos</th><td>{{intervalos}}</td></tr>
+                        <tr><th>Cupos</th><td>{{lista.length}}</td></tr>
                         <tr><th>Tiempo</th><td>{{gg}} min</td></tr>
-                        <tr><th>Precio regular</th><td>S/ {{valor}}</td></tr>
+                        <tr v-if="generico"><th>Precio regular</th><td>S/ {{valor}}</td></tr>
                         <tr><th>Precio detallado</th><td>{{!generico ? "Si" : "No"}}</td></tr>
                     </table>
                     <div class="row">
                         <div class="col s12 center">
                             <br>
-                            <input type="submit" class="btn waves-effect green">
-                            <a class="btn waves-effect amber" @click="colectar()">Aca!</a>
+                            <a class="btn waves-effect green" @click="enviarConjunto()" :class="[load ? 'disabled' : '']">Registrar</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div>
+        </transition>
+        <!--<div>
             <pre class="izquierda">
                 {{$data}}
             </pre>
-        </div>
+        </div>-->
     </div>
 </template>
 
 <script>
 import {mapState, mapMutations} from "vuex";
+import Loader from "@/components/Loader.vue";
 import axios from "axios";
 export default {
     name : "Horario",
+    components : {
+        Loader
+    },
     data : function(){
         return {
             load : false,
@@ -121,7 +135,8 @@ export default {
             valor : 0,
             generico : true,
             lista : [],
-            bloqueado : false
+            bloqueado : false,
+            cargando : true
         }
     },
     computed : {
@@ -203,7 +218,37 @@ export default {
             }
             console.log(set);
             this.lista = set;
-            this.salvarHorarios();
+        },
+        generar : function(){
+            let set = [];
+            if(parseInt(this.valor) > 0 ){
+                for(let i = 1; i < this.intervalos; i++){
+                    set.push(
+                            {
+                                court_soccer : this.canchitaDef.id,
+                                start_time : this.mostrar((i-1)*this.gg)+":00",
+                                end_time : this.mostrar((i)*this.gg)+":00",
+                                price : parseInt(this.valor),
+                                duration : this.gg
+                            }
+                        );
+                }
+            }
+            
+            this.lista = set;
+        },
+        enviarConjunto : function(){
+            if(this.generico){
+                this.generar();
+            } else {
+                this.colectar();
+            }
+            if(this.lista.length > 0){
+                this.salvarHorarios();
+            } else {
+                M.toast({html: "No hay precios registrados!"});
+            }
+            
         },
         //metodos ajax
         async updateCancha(){
@@ -224,6 +269,7 @@ export default {
                 response => {
                     this.load = false;
                     M.toast({html: "Actualizado!"});
+                    this.bloqueado = true;
                 }
             )
             .catch(error => {
@@ -234,6 +280,7 @@ export default {
             
         },
         async salvarHorarios(){
+            this.load = true;
             axios({
                 method: 'POST',
                 url : this.api + '/api/schedule/',
@@ -248,11 +295,45 @@ export default {
                 response => {
                     this.load = false;
                     M.toast({html: "Actualizado!"});
+                    this.$router.push("/canchitas");
                 }
             )
             .catch(error => {
                     this.load = false;
                     M.toast({html: "Ocurrió un error!"});
+                }
+            );
+            
+        },
+        async recuperarHoras(){
+            this.load = true;
+            axios({
+                method: 'GET',
+                url : this.api + '/api/schedule/'+this.canchitaDef.id+'/',
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Accept": "application/json, text/plain, */*",
+                    "Authorization" : this.usuario.data.token_type + " " + this.usuario.data.access_token
+                }
+            })
+            .then(
+                response => {
+                    this.load = false;
+                    if(response.data.length > 0){
+                        M.toast({html: "Ya estan las horas registradas!"});
+                        //this.$router.push("/canchitas");
+                        this.$router.go(-1);
+                    } else {
+                        this.cargando = false;
+                    }
+                    //M.toast({html: "Actualizado!"});
+                    //this.$router.push("/canchitas");
+                    //console.log(response.data);
+                }
+            )
+            .catch(error => {
+                    this.load = false;
+                    M.toast({html: "Ocurrió un error al recuperar!"});
                 }
             );
             
@@ -270,8 +351,8 @@ export default {
             this.$router.push("/login");
             M.toast({html: "Debes estar logeado!"});
         } else {
-            let mi = this.canchitaDef.start_time.split(":");
-            let mf = this.canchitaDef.end_time.split(":");
+            let mi = this.canchitaDef.start_time ? this.canchitaDef.start_time.split(":") : [];
+            let mf = this.canchitaDef.end_time ? this.canchitaDef.end_time.split(":") : [];
             if(mi.length == 3 && mf.length == 3){
                 this.hi = mi[0] + ":" + mi[1];
                 this.hf = mf[0] + ":" + mf[1];
@@ -279,6 +360,7 @@ export default {
                 this.bloqueado = true;
             }
         }
+        this.recuperarHoras();
     }
 }
 </script>

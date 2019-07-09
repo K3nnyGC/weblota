@@ -170,8 +170,8 @@ export default {
             }*/
 
             var elems = document.querySelectorAll('.modal');
-                var instances = M.Modal.init(elems, {});
-                this.getDep();
+            var instances = M.Modal.init(elems, {});
+            this.getDep();
             
 		});
 	}
